@@ -1,6 +1,10 @@
 // const MongoClient = require('mongodb').MongoClient;
 // desctructuring
-const {MongoClient} = require('mongodb');
+const {MongoClient, ObjectID} = require('mongodb');
+
+// generates uniq id
+// var obj = new ObjectID();
+// console.log(obj); // uniq id for every instance
 
 // desctructuring in ES6
 // var user = {name: 'Bart', age: 30};
