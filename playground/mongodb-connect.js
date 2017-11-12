@@ -1,9 +1,11 @@
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
+// desctructuring
+const {MongoClient} = require('mongodb');
 
 // desctructuring in ES6
-var user = {name: 'Bart', age: 30};
-var {name} = user;
-console.log(name);
+// var user = {name: 'Bart', age: 30};
+// var {name} = user;
+// console.log(name);
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   if (err) {
