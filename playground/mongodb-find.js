@@ -39,6 +39,19 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   //   console.log('Unable to fetch todos', err);
   // });
 
+// fetch * group by location
+  db.collection('Users').aggregate([
+    { "$group": {
+              "_id": "$location",
+              "count": { "$sum": 1 }
+          }}
+  ], (err, docs) => {
+    console.log('Users');
+    console.log(JSON.stringify(docs, undefined, 2));
+  }, (err) => {
+    console.log('Unable to group users', err);
+  });
+
 // fetch * where name = 'Bart'
   db.collection('Users').find({name: 'Bart'}).toArray().then((docs) => {
     console.log('Users');
