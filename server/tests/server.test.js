@@ -25,7 +25,7 @@ beforeEach((done) => {
 });
 
 describe('POST /todos', () => {
-  it('should create a new todo', (done) => {
+  it('should create a new todo', (done) => { // done means that test is async
     var text = 'Test todo text';
 
     request(app)
@@ -86,5 +86,19 @@ describe('GET /todos/:id', () => {
         expect(res.body.todo.text).toBe(todos[0].text);
       })
       .end(done);
+  });
+
+  it('should return 404 if todo not found', (done) => {
+    request(app)
+    .get(`/todos/${new ObjectID().toHexString()}`)
+    .expect(404)
+    .end(done);
+  });
+
+  it('should return 404 for non object ids', (done) => {
+    request(app)
+    .get(`/todos/seg5hdrthgftdgf`)
+    .expect(404)
+    .end(done);
   });
 });
