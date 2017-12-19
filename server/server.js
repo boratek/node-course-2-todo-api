@@ -134,6 +134,28 @@ app.patch('/todos/:id', (req, res) => {
   });
 });
 
+// ---------------------- USERS ---------------------------------
+// POST /users
+app.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+console.log(body);
+  var user = new User(body);
+
+  user.save().then((doc) => {
+    res.send(doc);
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
+
+app.get('/users', (req, res) => {
+  User.find().then((users) => {
+    res.send({users})
+  }, (e) => {
+    res.send(400).send(e);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Started up at port: ${port}`);
 });
