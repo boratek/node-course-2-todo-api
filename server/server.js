@@ -142,8 +142,10 @@ console.log(body);
   var user = new User(body);
 
   user.save().then((doc) => {
-    res.send(doc);
-  }, (e) => {
+    return user.generateAuthToken()
+  }).then((token) => {
+    res.header('x-auth', token).send(user);
+  }).catch((e) => {
     res.status(400).send(e);
   });
 });
