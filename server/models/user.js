@@ -1,17 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-// {
-//   email: 'some@email.com',
-//   password: '3q4tsergsdfgdf',
-//   tokens: [{
-//     access: 'auth',
-//     token: 'gq34grsergdfx'
-//   }]
-// }
-
-// define user model
-var User = mongoose.model('User', {
+var userObj = {
   email: {
     type: String,
     required: true,
@@ -38,6 +28,20 @@ var User = mongoose.model('User', {
       required: true
     }
   }]
-});
+};
+
+var UserSchema = new mongoose.Schema(userObj);
+
+// {
+//   email: 'some@email.com',
+//   password: '3q4tsergsdfgdf',
+//   tokens: [{
+//     access: 'auth',
+//     token: 'gq34grsergdfx'
+//   }]
+// }
+
+// define user model
+var User = mongoose.model('User', UserSchema);
 
 module.exports = {User};
