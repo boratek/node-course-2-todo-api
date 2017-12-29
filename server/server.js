@@ -139,7 +139,6 @@ app.patch('/todos/:id', (req, res) => {
 // POST /users
 app.post('/users', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
-console.log(body);
   var user = new User(body);
 
   user.save().then((doc) => {
@@ -161,6 +160,12 @@ app.get('/users', (req, res) => {
 
 app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
+});
+
+app.post('/users/login', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+
+  res.send(body);
 });
 
 app.listen(port, () => {
