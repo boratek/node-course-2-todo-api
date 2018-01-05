@@ -32,11 +32,6 @@ const todos = [
     _id: new ObjectID(),
     text: "Second test todo",
     _creator: userTwoId
-  } , {
-    _id: new ObjectID(),
-    text: "Third test todo",
-    completed: true,
-    completedAt: 333
   }
 ];
 
