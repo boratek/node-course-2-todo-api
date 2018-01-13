@@ -173,9 +173,11 @@ describe('PATCH /todos/:id', () => {
     // grab id of first item
     var hexId = todos[0]._id.toHexString();
     var text = 'Text changed';
+    // auth as first user
     // update text, set completed true
     request(app)
       .patch(`/todos/${hexId}`)
+      .set('x-auth', users[0].tokens[0].token)
       .send(
         {
           "completed": true,
@@ -194,6 +196,29 @@ describe('PATCH /todos/:id', () => {
       .end(done);
   });
 
+  // duplicate above Test
+  // try to update first todo as second user
+  // should return 404 response
+  it('should not update the todo created by other user', (done) => {
+    // grab id of first item
+    var hexId = todos[0]._id.toHexString();
+    var text = 'Text changed';
+    // auth as first user
+    // update text, set completed true
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .set('x-auth', users[1].tokens[0].token)
+      .send(
+        {
+          "completed": true,
+          text
+        }
+      )
+      // 200
+      .expect(404)
+      .end(done);
+  });
+
   it('should clear completedAt when todo is not completed', (done) => {
     // grab id of second item
     var hexId = todos[1]._id.toHexString();
@@ -202,6 +227,7 @@ describe('PATCH /todos/:id', () => {
     request(app)
       .patch(`/todos/${hexId}`)
       // update text, set completed false
+      .set('x-auth', users[1].tokens[0].token)
       .send(
         {
           "completed": false,
