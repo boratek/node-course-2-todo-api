@@ -191,7 +191,9 @@ describe('PATCH /todos/:id', () => {
         expect(res.body.todo._id).toBe(hexId);
         expect(res.body.todo.text).toBe(text);
         expect(res.body.todo.completed).toBe(true);
-        expect(res.body.todo.completedAt).toBeA('number');
+        // expect(res.body.todo.completedAt).toBeA('number');
+        // toBeA was no more support in version 21.1.0 of expect
+        expect(typeof res.body.todo.completedAt).toBe('number');
       })
       .end(done);
   });
